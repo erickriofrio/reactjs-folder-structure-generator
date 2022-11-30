@@ -1,69 +1,102 @@
-import mkdirp 	  	from 'mkdirp';
-import touch        from 'touch';
-import { log }      from 'console-log-colors';
-import { TYPENAME }	from './constants.js';
+import fs                               from 'fs';
+import path                             from 'path';
+import mkdirp                           from 'mkdirp';
+import touch                            from 'touch';
+import { log }                          from 'console-log-colors';
+import { MAKE_STRUCTURE_MAP, TYPENAME } from './constants.js';
 
 /**
  * 
+ * @param {*} structureLevel 
+ * @param {*} language 
+ * @returns 
  */
-export const makeSimpleStructure = () => {
+export const makeStructure = (structureLevel, language, targetPath) => MAKE_STRUCTURE_MAP[structureLevel](language, targetPath);
 
-  log('Creating simple project structure..', 'greenBright');
-	
-	mkdirp.sync('./src/__tests__/components');
-	mkdirp.sync('./src/__tests__/hooks');
-	mkdirp.sync('./src/components');
-	mkdirp.sync('./src/hooks');
-	
-	log('Simple project structure created!', 'cyanBright');
+/**
+ * 
+ * @param {*} language 
+ * @param {*} targetPath 
+ */
+export const makeSimpleStructure = (language, targetPath = '') => {
+
+  fs.access(targetPath, async (err) => {
+
+    if (err)
+      return log('Path doesn\'t exists!', 'red');
+
+    log('Creating simple project structure..', 'greenBright');
+
+    mkdirp.sync(path.join(targetPath, '/src/__tests__/components'));
+    mkdirp.sync(path.join(targetPath, '/src/__tests__/hooks'));
+    mkdirp.sync(path.join(targetPath, '/src/components'));
+    mkdirp.sync(path.join(targetPath, '/src/hooks'));
+
+    log('Simple project structure created!', 'cyanBright');
+  });
 }
 
 /**
  * 
  * @param {*} language 
+ * @param {*} targetPath 
  */
-export const makeIntermediateStructure = (language = TYPENAME.Javascript) => {
+export const makeIntermediateStructure = (language = TYPENAME.Javascript, targetPath = '') => {
 
-  log('Creating intermediate project structure..', 'greenBright');
-	
-	mkdirp.sync('./src/assets');
-	mkdirp.sync('./src/components/__tests__/components');
-	mkdirp.sync('./src/components/__tests__/hooks');
-	mkdirp.sync('./src/components/form');
-	mkdirp.sync('./src/components/ui');
-	mkdirp.sync('./src/context');
-	mkdirp.sync('./src/data');
-	mkdirp.sync('./src/hooks');
-	mkdirp.sync('./src/pages/Home/');
-	touch.sync(`./src/pages/Home/index.${language}`);
-	mkdirp.sync('./src/utils');
-	
-	log('Intermediate project structure created!', 'cyanBright');
+  fs.access(targetPath, async (err) => {
+
+    if (err)
+      return log('Path doesn\'t exists!', 'red');
+    
+    log('Creating intermediate project structure..', 'greenBright');
+    
+    mkdirp.sync(path.join(targetPath, './src/assets'));
+    mkdirp.sync(path.join(targetPath, './src/components/__tests__/components'));
+    mkdirp.sync(path.join(targetPath, './src/components/__tests__/hooks'));
+    mkdirp.sync(path.join(targetPath, './src/components/form'));
+    mkdirp.sync(path.join(targetPath, './src/components/ui'));
+    mkdirp.sync(path.join(targetPath, './src/context'));
+    mkdirp.sync(path.join(targetPath, './src/data'));
+    mkdirp.sync(path.join(targetPath, './src/hooks'));
+    mkdirp.sync(path.join(targetPath, './src/pages/Home/'));
+    touch.sync(path.join(targetPath, `./src/pages/Home/index.${language}`));
+    mkdirp.sync(path.join(targetPath, './src/utils'));
+    
+    log('Intermediate project structure created!', 'cyanBright');
+  });
+
 }
 
 /**
  * 
  * @param {*} language 
+ * @param {*} targetPath 
  */
-export const makeProStructure = (language = TYPENAME.Javascript) => {
+export const makeProStructure = (language = TYPENAME.Javascript, targetPath = '') => {
 
-  log('Creating professional project structure..', 'greenBright');
+  fs.access(targetPath, async (err) => {
 
-	mkdirp.sync('./src/assets');
-	mkdirp.sync('./src/components/form');
-	mkdirp.sync('./src/components/ui');
-	mkdirp.sync('./src/context');
-	mkdirp.sync('./src/data');
-	mkdirp.sync('./src/features/authentication/components');
-	mkdirp.sync('./src/features/authentication/hooks');
-	mkdirp.sync('./src/features/authentication/services');
-	mkdirp.sync('./src/features/authentication');
-	touch.sync(`./src/features/authentication/index.${language}`);
-	mkdirp.sync('./src/hooks');
-	mkdirp.sync('./src/layouts');
-	mkdirp.sync('./src/pages/__tests__');
-	mkdirp.sync('./src/services');
-	mkdirp.sync('./src/utils');
+    if (err)
+      return log('Path doesn\'t exists!', 'red');
+  
+    log('Creating professional project structure..', 'greenBright');
 
-	log('Professional project structure created!', 'cyanBright');
+    mkdirp.sync(path.join(targetPath, './src/assets'));
+    mkdirp.sync(path.join(targetPath, './src/components/form'));
+    mkdirp.sync(path.join(targetPath, './src/components/ui'));
+    mkdirp.sync(path.join(targetPath, './src/context'));
+    mkdirp.sync(path.join(targetPath, './src/data'));
+    mkdirp.sync(path.join(targetPath, './src/features/authentication/components'));
+    mkdirp.sync(path.join(targetPath, './src/features/authentication/hooks'));
+    mkdirp.sync(path.join(targetPath, './src/features/authentication/services'));
+    mkdirp.sync(path.join(targetPath, './src/features/authentication'));
+    touch.sync(path.join(targetPath, `./src/features/authentication/index.${language}`));
+    mkdirp.sync(path.join(targetPath, './src/hooks'));
+    mkdirp.sync(path.join(targetPath, './src/layouts'));
+    mkdirp.sync(path.join(targetPath, './src/pages/__tests__'));
+    mkdirp.sync(path.join(targetPath, './src/services'));
+    mkdirp.sync(path.join(targetPath, './src/utils'));
+  
+    log('Professional project structure created!', 'cyanBright');
+  });
 }

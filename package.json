@@ -2,7 +2,7 @@
   "name": "reactjs-folder-structure-generator",
   "type": "module",
   "version": "1.0.0",
-  "description": "A simple script that generate all folder structure you need (simple, intermediate, pro)",
+  "description": "A simple script that generates all folder structure you need (simple, intermediate, pro)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
